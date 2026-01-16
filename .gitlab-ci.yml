@@ -1,0 +1,35 @@
+image: rust:latest
+
+stages:
+  - build-linux
+
+variables:
+  npm_config_cache: "$CI_PROJECT_DIR/.npm"
+  SCCACHE_DIR: "$CI_PROJECT_DIR/.sccache"
+
+cache:
+  paths:
+    - .npm/
+    - target/
+    - .sccache/
+
+build-linux:
+  stage: build-linux
+  image: rust:latest
+  before_script:
+    - apt-get update
+    - apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf curl unzip
+    # Install Bun
+    - curl -fsSL https://bun.sh/install | bash
+    - export BUN_INSTALL="$HOME/.bun"
+    - export PATH="$BUN_INSTALL/bin:$PATH"
+    # Install Tauri CLI
+    - cargo install tauri-cli
+  script:
+    - bun install
+    - cargo tauri build
+  artifacts:
+    paths:
+      - src-tauri/target/release/bundle/deb/*.deb
+      - src-tauri/target/release/bundle/appimage/*.AppImage
+    expire_in: 1 week
