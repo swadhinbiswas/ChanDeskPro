@@ -97,5 +97,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-[Unreleased]: https://github.com/YOUR_USERNAME/chandesk/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/YOUR_USERNAME/chandesk/releases/tag/v0.1.0
+[Unreleased]: https://github.com/swadhinbiswas/ChanDeskPro/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/swadhinbiswas/ChanDeskPro/releases/tag/v0.1.0
