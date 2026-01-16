@@ -1,0 +1,46 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "ChanDesk Pro",
+  "version": "0.1.0",
+  "identifier": "com.deskchan.4chan",
+  "build": {
+    "beforeDevCommand": "bun run dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "bun run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "ChanDeskPro",
+        "width": 1200,
+        "height": 800,
+        "devtools": true
+      }
+    ],
+    "security": {
+      "csp": null,
+      "devCsp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "createUpdaterArtifacts": true
+  },
+  "plugins": {
+    "updater": {
+      "endpoints": [
+        "https://github.com/swadhinbiswas/ChanDeskPro/releases/latest/download/latest.json"
+      ],
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEI1MTgyQjRGQ0E2MDAzRjcKUldUM0EyREtUeXNZdFcrYkxxSkgxcVJENXlEL3pKMFFQMnZCUDlaRHdhbjdTUTBzUnNJNkI5TloK"
+    }
+  }
+}

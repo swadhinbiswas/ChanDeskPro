@@ -1,0 +1,16 @@
+
+> chandesk@0.1.0 tauri:dev
+> WEBKIT_DISABLE_COMPOSITING_MODE=1 WEBKIT_DISABLE_DMABUF_RENDERER=1 tauri dev
+
+     Running BeforeDevCommand (`bun run dev`)
+$ vite
+
+  VITE v6.4.1  ready in 81 ms
+
+  ➜  Local:   http://localhost:1420/
+  ➜  Network: use --host to expose
+     Running DevCommand (`cargo  run --no-default-features --color always --`)
+        Info Watching /home/swadhin/4chan/src-tauri for changes...
+[1m[92m    Finished[0m ]8;;https://doc.rust-lang.org/cargo/reference/profiles.html#default-profiles\`dev` profile [unoptimized + debuginfo]]8;;\ target(s) in 0.11s
+[1m[92m     Running[0m `target/debug/chandesk`
+7:06:07 PM [vite] (client) hmr update /src/index.css, /src/App.tsx, /src/components/common/ShortcutsCheatSheet.tsx
