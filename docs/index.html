@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChanDesk Pro - The Ultimate Imageboard Desktop Client</title>
+    <meta name="description"
+        content="A blazing-fast, modern desktop app for browsing 4chan with premium UI, powerful features, and privacy-first design. Available for Windows, macOS, and Linux.">
+    <meta name="keywords" content="4chan, desktop client, imageboard browser, tauri, rust, privacy, anonymous">
+    <meta property="og:title" content="ChanDesk Pro - The Ultimate Imageboard Desktop Client">
+    <meta property="og:description" content="Blazing-fast desktop app for 4chan with premium UI and powerful features.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://swadhinbiswas.github.io/ChanDeskPro/">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a24;
+            --bg-glass: rgba(26, 26, 36, 0.7);
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --text-muted: #6b6b7b;
+            --accent-primary: #7c3aed;
+            --accent-secondary: #a855f7;
+            --accent-gradient: linear-gradient(135deg, #7c3aed 0%, #a855f7 50%, #ec4899 100%);
+            --accent-glow: rgba(124, 58, 237, 0.4);
+            --success: #10b981;
+            --border: rgba(255, 255, 255, 0.08);
+            --border-hover: rgba(255, 255, 255, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Background Effects */
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(124, 58, 237, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(124, 58, 237, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .bg-glow {
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .bg-glow-1 {
+            top: -200px;
+            left: -100px;
+            background: var(--accent-primary);
+        }
+
+        .bg-glow-2 {
+            bottom: 20%;
+            right: -200px;
+            background: #ec4899;
+            opacity: 0.25;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            backdrop-filter: blur(20px);
+            background: rgba(10, 10, 15, 0.8);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--accent-gradient);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-cta {
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--accent-gradient);
+            color: white;
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px var(--accent-glow);
+        }
+
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-secondary);
+            border-color: var(--border-hover);
+        }
+
+        .btn-lg {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            border-radius: 14px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content {
+            z-index: 1;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .badge-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #fff 0%, #a0a0b0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero h1 span {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .stat {
+            text-align: left;
+        }
+
+        .stat-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Hero Image */
+        .hero-visual {
+            position: relative;
+        }
+
+        .app-preview {
+            width: 100%;
+            border-radius: 16px;
+            box-shadow:
+                0 25px 50px -12px rgba(0, 0, 0, 0.5),
+                0 0 0 1px var(--border);
+            background: var(--bg-card);
+            overflow: hidden;
+        }
+
+        .app-preview-header {
+            padding: 1rem;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .app-preview-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot-red {
+            background: #ff5f57;
+        }
+
+        .dot-yellow {
+            background: #ffbd2e;
+        }
+
+        .dot-green {
+            background: #28c840;
+        }
+
+        .app-preview-content {
+            height: 400px;
+            background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-secondary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .app-preview-content::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(90deg, transparent 0%, rgba(124, 58, 237, 0.1) 50%, transparent 100%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .app-mockup {
+            display: grid;
+            grid-template-columns: 60px 1fr;
+            gap: 1px;
+            width: 90%;
+            height: 85%;
+            background: var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .mockup-sidebar {
+            background: var(--bg-secondary);
+            padding: 1rem 0.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .mockup-sidebar-item {
+            width: 40px;
+            height: 40px;
+            background: var(--bg-card);
+            border-radius: 8px;
+            opacity: 0.6;
+        }
+
+        .mockup-sidebar-item.active {
+            background: var(--accent-primary);
+            opacity: 1;
+        }
+
+        .mockup-main {
+            background: var(--bg-primary);
+            padding: 1rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.75rem;
+            overflow: hidden;
+        }
+
+        .mockup-card {
+            background: var(--bg-card);
+            border-radius: 6px;
+            aspect-ratio: 1;
+            opacity: 0.8;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 6rem 2rem;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-label {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: rgba(124, 58, 237, 0.15);
+            border: 1px solid rgba(124, 58, 237, 0.3);
+            border-radius: 100px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent-secondary);
+            margin-bottom: 1rem;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+        }
+
+        .features-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-card {
+            padding: 2rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--accent-gradient);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Platforms Section */
+        .platforms {
+            padding: 6rem 2rem;
+            background: var(--bg-secondary);
+        }
+
+        .platforms-grid {
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .platform-card {
+            padding: 2.5rem 2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .platform-card:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-4px);
+        }
+
+        .platform-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .platform-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .platform-card p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Privacy Section */
+        .privacy {
+            padding: 6rem 2rem;
+        }
+
+        .privacy-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .privacy-content h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .privacy-content p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .privacy-features {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .privacy-feature {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .privacy-check {
+            width: 32px;
+            height: 32px;
+            background: rgba(16, 185, 129, 0.15);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--success);
+            font-size: 1.1rem;
+        }
+
+        .privacy-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .shield-icon {
+            width: 250px;
+            height: 250px;
+            background: var(--accent-gradient);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            box-shadow: 0 0 100px var(--accent-glow);
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 6rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 4rem;
+            background: var(--bg-glass);
+            border: 1px solid var(--border);
+            border-radius: 32px;
+            backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 1px;
+            background: var(--accent-gradient);
+        }
+
+        .cta h2 {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .cta p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 2rem 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-copy {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-content {
+                order: 1;
+            }
+
+            .hero-visual {
+                order: 2;
+            }
+
+            .hero-description {
+                margin: 0 auto 2rem;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .privacy-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .privacy-features {
+                align-items: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .platforms-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-stats {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">📺</div>
+                <span>ChanDesk Pro</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#platforms">Platforms</a></li>
+                <li><a href="#privacy">Privacy</a></li>
+                <li><a href="https://github.com/swadhinbiswas/ChanDeskPro">GitHub</a></li>
+            </ul>
+            <div class="nav-cta">
+                <a href="https://github.com/swadhinbiswas/ChanDeskPro/releases/latest" class="btn btn-primary">Download
+                    Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="badge">
+                    <span class="badge-dot"></span>
+                    <span>v0.1.0 Now Available for All Platforms</span>
+                </div>
+                <h1>The <span>Ultimate</span> Imageboard Desktop Client</h1>
+                <p class="hero-description">
+                    A blazing-fast, privacy-focused desktop app for browsing 4chan with a premium UI,
+                    powerful features, and native performance. No ads, no tracking, just pure browsing.
+                </p>
+                <div class="hero-buttons">
+                    <a href="https://github.com/swadhinbiswas/ChanDeskPro/releases/latest"
+                        class="btn btn-primary btn-lg">
+                        ⬇️ Download Free
+                    </a>
+                    <a href="https://github.com/swadhinbiswas/ChanDeskPro" class="btn btn-secondary btn-lg">
+                        ⭐ Star on GitHub
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-value">3</div>
+                        <div class="stat-label">Platforms</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">10+</div>
+                        <div class="stat-label">Themes</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">100%</div>
+                        <div class="stat-label">Free & Open Source</div>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="app-preview">
+                    <div class="app-preview-header">
+                        <div class="app-preview-dot dot-red"></div>
+                        <div class="app-preview-dot dot-yellow"></div>
+                        <div class="app-preview-dot dot-green"></div>
+                    </div>
+                    <div class="app-preview-content">
+                        <div class="app-mockup">
+                            <div class="mockup-sidebar">
+                                <div class="mockup-sidebar-item active"></div>
+                                <div class="mockup-sidebar-item"></div>
+                                <div class="mockup-sidebar-item"></div>
+                                <div class="mockup-sidebar-item"></div>
+                                <div class="mockup-sidebar-item"></div>
+                            </div>
+                            <div class="mockup-main">
+                                <div class="mockup-card"></div>
+                                <div class="mockup-card"></div>
+                                <div class="mockup-card"></div>
+                                <div class="mockup-card"></div>
+                                <div class="mockup-card"></div>
+                                <div class="mockup-card"></div>
+                                <div class="mockup-card"></div>
+                                <div class="mockup-card"></div>
+                                <div class="mockup-card"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="section-header">
+            <span class="section-label">✨ FEATURES</span>
+            <h2>Everything You Need for the Ultimate Experience</h2>
+            <p>Designed for power users who demand speed, privacy, and flexibility.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <h3>Premium Dark UI</h3>
+                <p>Sleek, modern interface inspired by Discord with 10+ beautiful themes including Nord, Dracula, and
+                    Catppuccin.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Blazing Fast</h3>
+                <p>Built with Tauri and Rust for native performance. Instant load times and silky-smooth scrolling.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🖼️</div>
+                <h3>Grid Catalog View</h3>
+                <p>Visualize threads with high-resolution thumbnails in a beautiful, responsive grid layout.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <h3>Smart Search & Filter</h3>
+                <p>Instantly find boards and threads. Filter by keywords, tripcodes, or regex patterns.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📑</div>
+                <h3>Multi-Tab Browsing</h3>
+                <p>Browse multiple threads and catalogs simultaneously with a familiar tabbed interface.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎬</div>
+                <h3>Enhanced Media Viewer</h3>
+                <p>Immersive lightbox with zoom, video player with custom controls, looping, and speed settings.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📴</div>
+                <h3>Offline Mode</h3>
+                <p>Automatic caching of visited threads for offline reading. Never lose a thread again.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔔</div>
+                <h3>Thread Watcher</h3>
+                <p>Desktop notifications when your watched threads get new replies. Never miss an update.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⌨️</div>
+                <h3>Keyboard Shortcuts</h3>
+                <p>Navigate like a pro with intuitive shortcuts. J/K to scroll, Esc to close, and more.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Platforms Section -->
+    <section class="platforms" id="platforms">
+        <div class="section-header">
+            <span class="section-label">💻 PLATFORMS</span>
+            <h2>Available Everywhere You Are</h2>
+            <p>Native apps for all major desktop operating systems.</p>
+        </div>
+        <div class="platforms-grid">
+            <div class="platform-card">
+                <div class="platform-icon">🪟</div>
+                <h3>Windows</h3>
+                <p>Windows 10 & 11</p>
+                <a href="https://github.com/swadhinbiswas/ChanDeskPro/releases/latest"
+                    class="btn btn-secondary">Download .exe</a>
+            </div>
+            <div class="platform-card">
+                <div class="platform-icon">🍎</div>
+                <h3>macOS</h3>
+                <p>Intel & Apple Silicon</p>
+                <a href="https://github.com/swadhinbiswas/ChanDeskPro/releases/latest"
+                    class="btn btn-secondary">Download .dmg</a>
+            </div>
+            <div class="platform-card">
+                <div class="platform-icon">🐧</div>
+                <h3>Linux</h3>
+                <p>.deb, .AppImage, .rpm</p>
+                <a href="https://github.com/swadhinbiswas/ChanDeskPro/releases/latest"
+                    class="btn btn-secondary">Download</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Privacy Section -->
+    <section class="privacy" id="privacy">
+        <div class="privacy-container">
+            <div class="privacy-content">
+                <h2>🔒 Privacy First</h2>
+                <p>We believe in respecting your privacy. ChanDesk Pro is designed with security at its core.</p>
+                <div class="privacy-features">
+                    <div class="privacy-feature">
+                        <div class="privacy-check">✓</div>
+                        <span>No tracking or analytics</span>
+                    </div>
+                    <div class="privacy-feature">
+                        <div class="privacy-check">✓</div>
+                        <span>No accounts required</span>
+                    </div>
+                    <div class="privacy-feature">
+                        <div class="privacy-check">✓</div>
+                        <span>Direct connection to imageboards</span>
+                    </div>
+                    <div class="privacy-feature">
+                        <div class="privacy-check">✓</div>
+                        <span>Built-in CORS proxy strips tracking headers</span>
+                    </div>
+                    <div class="privacy-feature">
+                        <div class="privacy-check">✓</div>
+                        <span>100% open source & auditable</span>
+                    </div>
+                </div>
+            </div>
+            <div class="privacy-visual">
+                <div class="shield-icon">🛡️</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="cta-container">
+            <h2>Ready to Experience the Best?</h2>
+            <p>Download ChanDesk Pro now and transform how you browse imageboards. It's free, forever.</p>
+            <div class="cta-buttons">
+                <a href="https://github.com/swadhinbiswas/ChanDeskPro/releases/latest" class="btn btn-primary btn-lg">
+                    ⬇️ Download Now — It's Free
+                </a>
+                <a href="https://github.com/swadhinbiswas/ChanDeskPro" class="btn btn-secondary btn-lg">
+                    📖 View Source Code
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">📺</div>
+                <span>ChanDesk Pro</span>
+            </a>
+            <div class="footer-links">
+                <a href="https://github.com/swadhinbiswas/ChanDeskPro">GitHub</a>
+                <a href="https://gitlab.com/swadhinbiswas/chandeskpro">GitLab Mirror</a>
+                <a href="https://github.com/swadhinbiswas/ChanDeskPro/issues">Report Issue</a>
+                <a href="https://github.com/swadhinbiswas/ChanDeskPro/discussions">Community</a>
+            </div>
+            <p class="footer-copy">© 2026 ChanDesk Pro. Open source under MIT License.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

@@ -1,158 +1,213 @@
 <div align="center">
   <img src="src-tauri/icons/128x128.png" alt="ChanDesk Pro Logo" width="128" height="128" />
   <h1>🖥️ ChanDesk Pro</h1>
-  <p><strong>The Ultimate Desktop Client for Imageboards</strong></p>
-  <p>A blazing-fast, modern desktop app for browsing 4chan, 7chan, and more — with premium UI and powerful features.</p>
+  <h3>The Ultimate Desktop Client for Imageboards</h3>
+  <p>A blazing-fast, privacy-focused desktop app for browsing 4chan with a premium UI and powerful features.</p>
+
   <p>
     <a href="https://github.com/swadhinbiswas/ChanDeskPro/releases/latest">
-      <img src="https://img.shields.io/badge/version-0.1.0-blue?style=for-the-badge&logo=github" alt="Version" />
+      <img src="https://img.shields.io/github/v/release/swadhinbiswas/ChanDeskPro?style=for-the-badge&logo=github&color=7c3aed" alt="Release" />
     </a>
-    <a href="https://gitlab.com/swadhinbiswas/chandeskpro">
-      <img src="https://img.shields.io/badge/GitLab-Mirror-orange?style=for-the-badge&logo=gitlab" alt="GitLab" />
+    <a href="https://github.com/swadhinbiswas/ChanDeskPro/releases">
+      <img src="https://img.shields.io/github/downloads/swadhinbiswas/ChanDeskPro/total?style=for-the-badge&logo=github&color=10b981" alt="Downloads" />
+    </a>
+    <a href="https://github.com/swadhinbiswas/ChanDeskPro/stargazers">
+      <img src="https://img.shields.io/github/stars/swadhinbiswas/ChanDeskPro?style=for-the-badge&logo=github&color=f59e0b" alt="Stars" />
     </a>
     <a href="LICENSE">
-      <img src="https://img.shields.io/badge/license-MIT-green?style=for-the-badge" alt="License" />
+      <img src="https://img.shields.io/badge/license-MIT-blue?style=for-the-badge" alt="License" />
     </a>
-    <img src="https://img.shields.io/badge/tauri-2.0-orange?style=for-the-badge&logo=tauri" alt="Tauri" />
-    <img src="https://img.shields.io/badge/platforms-linux%20|%20windows%20|%20macos%20|%20android%20|%20ios-purple?style=for-the-badge" alt="Platforms" />
+  </p>
+
+  <p>
+    <img src="https://img.shields.io/badge/Tauri-2.0-FFC131?style=flat-square&logo=tauri&logoColor=white" alt="Tauri" />
+    <img src="https://img.shields.io/badge/Rust-000000?style=flat-square&logo=rust&logoColor=white" alt="Rust" />
+    <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
+    <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=black" alt="React" />
+  </p>
+
+  <p>
+    <a href="https://swadhinbiswas.github.io/ChanDeskPro/">🌐 Website</a> •
+    <a href="#-quick-start">⚡ Quick Start</a> •
+    <a href="#-features">✨ Features</a> •
+    <a href="#-downloads">📥 Downloads</a> •
+    <a href="https://github.com/swadhinbiswas/ChanDeskPro/discussions">💬 Community</a>
   </p>
 </div>
 
 ---
 
+<div align="center">
+  <table>
+    <tr>
+      <td align="center" width="400">
+        <img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/palette/macchiato.png" width="400" alt="Theme Preview" />
+        <br />
+        <sub><b>🎨 Beautiful Themes</b></sub>
+      </td>
+      <td align="center" width="400">
+        <img src="https://img.shields.io/badge/⚡_Blazing_Fast-Rust_Powered-orange?style=for-the-badge" height="60" alt="Fast" />
+        <br />
+        <sub><b>🚀 Native Performance</b></sub>
+      </td>
+    </tr>
+  </table>
+</div>
+
+---
+
 > [!IMPORTANT]
-> **DISCLAIMER & CONTENT WARNING**
->
-> 1.  **Unofficial Client**: This application is an unofficial 3rd-party client. It is not affiliated with, endorsed by, or connected to 4chan.org or any other imageboard.
-> 2.  **User Responsibility**: By using this software, you agree to abide by the Terms of Service and Rules of the respective imageboards you browse.
-> 3.  **18+ Content**: Some boards may contain content suitable only for adults. Accessing such content is strictly for users 18 years of age or older (or the legal age of majority in your jurisdiction). The developer assumes no liability for content accessed through this application.
+> **DISCLAIMER**: This is an unofficial third-party client. Not affiliated with 4chan.org.
+> Some boards contain 18+ content — user discretion is advised.
 
 ---
 
 ## ✨ Features
 
-### 🎨 Premium Experience
-- **Modern UI**: Sleek dark interface inspired by Discord, built with **shadcn/ui**.
-- **Theming**: Choose from Nord, Dracula, Catppuccin, and more, or create custom themes.
-- **Smooth Animations**: Powered by Framer Motion for a fluid feel.
+<table>
+<tr>
+<td width="50%">
 
-### 🚀 Powerful Browsing
-- **Grid Catalog**: Visualize threads with high-res thumbnails.
-- **Global Search**: Instantly find boards and threads.
-- **Smart Filtering**: Filter posts by keywords, tripcodes, or Regex.
-- **Multi-Tab**: Browse multiple threads and catalogs simultaneously like a web browser.
+### 🎨 Premium Experience
+- **Modern Dark UI** — Sleek interface built with shadcn/ui
+- **10+ Themes** — Nord, Dracula, Catppuccin, and more
+- **Smooth Animations** — Framer Motion powered transitions
+
+### 🚀 Power Browsing
+- **Grid Catalog** — Visual thread browsing with thumbnails
+- **Global Search** — Find boards and threads instantly
+- **Smart Filtering** — Keywords, tripcodes, regex support
+- **Multi-Tab** — Browser-style tabbed interface
+
+</td>
+<td width="50%">
 
 ### 🎬 Media & Tools
-- **Immersive Lightbox**: Double-click visuals for a deep-zoom fullscreen experience.
-- **Video Player**: Custom controls, loop, and speed settings.
-- **Offline Caching**: Automatically caches visited threads for offline reading.
-- **Thread Watcher**: Get desktop notifications when watched threads update.
+- **Immersive Lightbox** — Fullscreen zoom experience
+- **Video Player** — Custom controls, loop, speed
+- **Offline Cache** — Browse threads without internet
+- **Thread Watcher** — Desktop notifications for updates
+
+### 🔒 Privacy First
+- **No Tracking** — Zero analytics or telemetry
+- **No Account** — Completely anonymous browsing
+- **Open Source** — Fully auditable codebase
+- **Direct Connection** — No third-party servers
+
+</td>
+</tr>
+</table>
 
 ---
 
-## 🔒 Security & Privacy
+## 📥 Downloads
 
-We take your privacy seriously. Here is how ChanDesk Pro protects you:
+<div align="center">
 
-### 🛡️ Built-in Proxy
-We use a local Rust-based proxy to route image and video requests.
-- **Function**: Bypasses CORS restrictions enforced by browsers.
-- **Privacy**: Your IP address is sent to the imageboard servers (standard behavior), but headers are stripped of tracking referrers.
-- **Safety**: No data is ever routed through 3rd-party intermediate servers. It goes strictly `You -> Imageboard`.
+| Platform | Download | Architecture |
+|:--------:|:--------:|:------------:|
+| **🪟 Windows** | [**Download .exe**](https://github.com/swadhinbiswas/ChanDeskPro/releases/latest) | x64, ARM64 |
+| **🍎 macOS** | [**Download .dmg**](https://github.com/swadhinbiswas/ChanDeskPro/releases/latest) | Intel, Apple Silicon |
+| **🐧 Linux** | [**Download**](https://github.com/swadhinbiswas/ChanDeskPro/releases/latest) | .deb, .AppImage, .rpm |
 
-### 🔑 No Tokens Required
-- **Anonymous**: 4chan and most supported imageboards are anonymous. You do **not** need an account or API token.
-- **Recaptcha**: Posting uses the native Captcha v2 widget when required. No specialized "pass" is needed (though 4chan Pass support is planned).
+</div>
 
----
-
-## 📦 Downloads
-
-| Platform | Installer | Portable |
-|----------|-----------|----------|
-| **Windows** | [`ChanDesk-Setup-x64.exe`](../../releases/latest) | [`ChanDesk-x64.nsis.zip`](../../releases/latest) |
-| **macOS** | [`ChanDesk-x64.dmg`](../../releases/latest) | [`ChanDesk.app.tar.gz`](../../releases/latest) |
-| **Linux** | [`ChanDesk_amd64.deb`](../../releases/latest) | [`ChanDesk.AppImage`](../../releases/latest) |
-| **Android** | [`ChanDesk.apk`](../../releases/latest) | - |
+> [!TIP]
+> **Linux Users**: If using AppImage, make it executable first: `chmod +x ChanDesk*.AppImage`
 
 ---
 
-## 🚀 Quick Start
+## ⚡ Quick Start
 
-### Installation
-1.  Download the installer for your OS from the [Releases](../../releases/latest) page.
-2.  Run the installer.
-3.  (Linux) If using AppImage, allow execution: `chmod +x ChanDesk.AppImage`.
+### Install & Run
+1. Download the installer for your OS from [**Releases**](https://github.com/swadhinbiswas/ChanDeskPro/releases/latest)
+2. Run the installer
+3. Launch ChanDesk Pro and start browsing!
 
-### Usage
--   **Navigation**: Use the sidebar to switch boards. Click the "Star" to favorite.
--   **Shortcuts**:
-    -   `J` / `K`: Scroll posts
-    -   `Alt+F` / `Double Click`: Fullscreen Image
-    -   `Esc`: Close modals
-    -   `Ctrl+T`: New Tab
+### ⌨️ Keyboard Shortcuts
+
+| Action | Shortcut |
+|--------|----------|
+| Scroll posts | `J` / `K` |
+| Fullscreen image | `Alt+F` or `Double Click` |
+| Close modals | `Esc` |
+| New tab | `Ctrl+T` |
+
+---
+
+## 🛠️ Build from Source
+
+**Prerequisites:** [Bun](https://bun.sh), [Rust](https://rustup.rs)
+
+```bash
+# Clone the repository
+git clone https://github.com/swadhinbiswas/ChanDeskPro.git
+cd ChanDeskPro
+
+# Install dependencies
+bun install
+
+# Run in development mode
+bun run tauri:dev
+
+# Build for production
+bun run tauri:build
+```
+
+See [BUILD.md](BUILD.md) for detailed build instructions and troubleshooting.
 
 ---
 
 ## 🗺️ Roadmap
 
-We are constantly improving ChanDesk Pro. Here is what's coming next:
-
-- [ ] **Advanced Replying**: Image uploading, rich text tools, and saved replies.
-- [ ] **Expanded Video Support**: Native support for more video platforms (YouTube, Twitch, Streamable) and direct file streaming from other archives.
-- [ ] **4chan Pass**: Login support for bypassing captchas.
-- [ ] **Plugin System**: Community-created extensions.
+- [ ] 📤 **Advanced Replying** — Image upload, rich text
+- [ ] 🎥 **Expanded Video** — YouTube, Twitch embeds
+- [ ] 🔑 **4chan Pass** — Captcha bypass support
+- [ ] 🔌 **Plugin System** — Community extensions
 
 ---
 
-## 🤝 Community & Support
+## 🤝 Contributing
 
-### Finding Other Users
-The best place to discuss ChanDesk Pro:
--   **GitHub Discussions**: [Ask questions & share feedback](../../discussions)
--   **Issue Tracker**: [Report bugs here](../../issues)
+We welcome contributions! Here's how to get involved:
 
-### Contributing
-We welcome contributions!
-1.  Fork the repository.
-2.  Create a feature branch (`git checkout -b feature/amazing-feature`).
-3.  Commit your changes.
-4.  Open a Pull Request.
+1. **Fork** the repository
+2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
+3. **Commit** your changes
+4. **Push** to the branch
+5. **Open** a Pull Request
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ---
 
-## 🛠️ Build From Source
+## 🔒 Security & Privacy
 
-**Prerequisites:** [Bun](https://bun.sh), [Rust](https://rustup.rs), and OS build tools.
+| Feature | Description |
+|---------|-------------|
+| 🛡️ **Built-in CORS Proxy** | Routes requests through local Rust proxy, strips tracking headers |
+| 🔑 **No API Tokens** | Anonymous by design, no accounts needed |
+| 🔐 **No Telemetry** | Zero data collection or analytics |
+| 🌐 **Direct Connection** | `You → Imageboard` — no intermediaries |
 
-```bash
-# 1. Clone (GitHub)
-git clone https://github.com/swadhinbiswas/ChanDeskPro.git
-# OR (GitLab)
-git clone https://gitlab.com/swadhinbiswas/chandeskpro.git
+---
 
-cd ChanDeskPro
+## 📜 License
 
-# 2. Install
-bun install
-
-# 3. Develop
-bun run tauri:dev
-
-# 4. Build Production
-bun run tauri:build
-```
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
 
 ---
 
 <div align="center">
-  <p>Made with ❤️ for the community.</p>
-  <p>If you like this project, please give it a ⭐!</p>
+  <p>
+    <b>If you find ChanDesk Pro useful, please consider giving it a ⭐!</b>
+  </p>
+  <p>
+    <a href="https://github.com/swadhinbiswas/ChanDeskPro">GitHub</a> •
+    <a href="https://gitlab.com/swadhinbiswas/chandeskpro">GitLab Mirror</a> •
+    <a href="https://swadhinbiswas.github.io/ChanDeskPro/">Website</a>
+  </p>
+  <p>
+    <sub>Made with ❤️ by the community</sub>
+  </p>
 </div>
-
----
-
-<p align="center">
-  <a href="https://github.com/swadhinbiswas/ChanDeskPro">GitHub</a> •
-  <a href="https://gitlab.com/swadhinbiswas/chandeskpro">GitLab Mirror</a>
-</p>

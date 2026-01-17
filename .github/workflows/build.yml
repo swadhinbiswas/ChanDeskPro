@@ -69,11 +69,18 @@ jobs:
           TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
           TAURI_SIGNING_PRIVATE_KEY_PASSWORD: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY_PASSWORD }}
         with:
-          tagName: v__VERSION__
-          releaseName: 'ChanDesk Pro v__VERSION__'
-          releaseBody: 'See the assets to download and install this version.'
-          releaseDraft: true
-          prerelease: false
+          tagName: v${{ github.run_number }}-${{ github.sha }}
+          releaseName: 'ChanDesk Pro Build #${{ github.run_number }}'
+          releaseBody: |
+            ## 🚀 ChanDesk Pro - Automated Build
+            
+            **Commit:** ${{ github.sha }}
+            **Branch:** ${{ github.ref_name }}
+            
+            Download the installer for your platform below.
+          releaseDraft: false
+          prerelease: true
+          includeRelease: true
           args: ${{ matrix.args }}
 
       - name: Upload artifacts
