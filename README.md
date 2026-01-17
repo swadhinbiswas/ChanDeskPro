@@ -101,7 +101,6 @@ We are constantly improving ChanDesk Pro. Here is what's coming next:
 - [ ] **Advanced Replying**: Image uploading, rich text tools, and saved replies.
 - [ ] **Expanded Video Support**: Native support for more video platforms (YouTube, Twitch, Streamable) and direct file streaming from other archives.
 - [ ] **4chan Pass**: Login support for bypassing captchas.
-- [ ] **Custom Themes**: A complete theme editor to share styles.
 - [ ] **Plugin System**: Community-created extensions.
 
 ---
